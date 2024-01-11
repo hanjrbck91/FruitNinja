@@ -9,7 +9,7 @@ public class TargetX : MonoBehaviour
     public int pointValue;
     public GameObject explosionFx;
 
-    public float timeOnScreen = 1.0f;
+    public float timeOnScreen = 2.0f;
 
     private float minValueX = -3.75f; // the x value of the center of the left-most square
     private float minValueY = -3.75f; // the y value of the center of the bottom-most square
@@ -27,7 +27,7 @@ public class TargetX : MonoBehaviour
     }
 
     // When target is clicked, destroy it, update score, and generate explosion
-    private void OnMouseEnter()
+    private void OnMouseDown()
     {
         if (gameManagerX.isGameActive)
         {
@@ -80,7 +80,7 @@ public class TargetX : MonoBehaviour
         yield return new WaitForSeconds(timeOnScreen);
         if (gameManagerX.isGameActive)
         {
-            transform.Translate(Vector3.forward * 5, Space.World);
+            transform.Translate(Vector3.forward * 3, Space.World);
         }
 
     }
