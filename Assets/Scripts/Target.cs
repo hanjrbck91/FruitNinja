@@ -5,13 +5,12 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     private GameManager gameManager;
-
     private Rigidbody targetRb;
     public float minSpeed = 12f;
     public float maxSpeed = 16f;
     public float maxTorque = 10f;
     public float xRange = 4f;
-    public float ySpawnPosition = -2f;
+    public float ySpawnPosition = -1f;
 
     public int pointValue;
     public ParticleSystem explosionParticle;
@@ -30,7 +29,7 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(gameManager.isGameActive)
+        if (gameManager.isGameActive)
         {
             Destroy(gameObject);
             gameManager.UpdateScore(pointValue);
@@ -42,14 +41,32 @@ public class Target : MonoBehaviour
         Destroy(gameObject);
         if(!gameObject.CompareTag("Bad"))
         {
-            gameManager.GameOver();
+            if(gameManager.livesLeft == 0)
+            {
+                gameManager.GameOver();
+            }
+            else
+            {
+                gameManager.LivesUpdate(1);
+            }
+            
+        }
+    }
+    public void DestroyTarget()
+    {
+        if (gameManager.isGameActive)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position,
+            explosionParticle.transform.rotation);
+            gameManager.UpdateScore(pointValue);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+      
     }
 
     Vector3 RandomForce()
@@ -66,4 +83,6 @@ public class Target : MonoBehaviour
      {
         return new Vector3(Random.Range(-xRange, xRange), ySpawnPosition, 0f);
      }
+
+   
 }
