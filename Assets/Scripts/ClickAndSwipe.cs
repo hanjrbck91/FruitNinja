@@ -4,7 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(TrailRenderer), typeof(BoxCollider))]
 public class ClickAndSwipe : MonoBehaviour
-{
+{  
+    private SoundManager soundManager;
     private GameManager gameManager;
     private Camera cam;
     private Vector3 mousePos;
@@ -20,6 +21,7 @@ public class ClickAndSwipe : MonoBehaviour
         trail.enabled = false;
         col.enabled = false;
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();    
     }
 
 
@@ -62,6 +64,7 @@ public class ClickAndSwipe : MonoBehaviour
         {
             //Destroy the target
             collision.gameObject.GetComponent<Target>().DestroyTarget();
+            soundManager.PlayFruitCutSound();
         }
     }
 
